@@ -1,0 +1,34 @@
+
+---
+- hosts: ubuntu
+  become: yes
+  tasks:
+  - name: updating packages
+    apt: 
+      update_cache: yes
+  - name: download nvm
+    get_url:
+      url: https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh
+      dest: /home/ubuntu
+  - name: running a script
+    script: install_nvm.sh
+  - name: installing nodejs using nvm 
+    command: nvm install 8.12.0
+       
+  - name: installing docker
+    apt:
+      name: docker.io
+      state: present
+      update_cache: yes
+  - name: installing docker compose
+    apt:
+      name: docker-compose
+      state: present
+  - name: install openssl
+    apt: 
+      name: openssl
+      state: present
+  - name: installing git
+    apt: 
+      name: git
+      state: present    
